@@ -46,7 +46,7 @@ class Errors extends WebAppController
     public function error404(array $data): void
     {
 
-        $this->respond('examples/pages/404', [
+        $this->respond('pages/404', [
             'page' => [
                 'title' => $this->webAppService->translate->get('common.404_title')
             ],

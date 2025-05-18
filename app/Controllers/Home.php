@@ -38,7 +38,7 @@ class Home extends WebAppController
     public function index(array $params): void
     {
 
-        $this->respond('examples/pages/home', [
+        $this->respond('pages/home', [
             'page' => [
                 'title' => 'Home'
             ],

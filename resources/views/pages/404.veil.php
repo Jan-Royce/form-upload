@@ -11,7 +11,7 @@ use Bayfront\BonesService\WebApp\Utilities\VeilData;
  *
  * Uses:
  *
- *   - examples/layouts/container
+ *   - layouts/container
  *
  * Data:
  *
@@ -47,4 +47,4 @@ use Bayfront\BonesService\WebApp\Utilities\VeilData;
 
 @endsection
 
-@use:examples/layouts/container
+@use:layouts/container

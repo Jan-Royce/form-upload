@@ -8,7 +8,7 @@
  *
  * Uses:
  *
- *   - examples/layouts/container
+ *   - layouts/container
  *
  * Data:
  *
@@ -35,4 +35,4 @@
 
 @endsection
 
-@use:examples/layouts/container
+@use:layouts/container

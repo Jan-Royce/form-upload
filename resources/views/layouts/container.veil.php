@@ -9,9 +9,9 @@
  *
  * Uses:
  *
- *   - examples/layouts/partials/head
- *   - examples/layouts/partials/header
- *   - examples/layouts/partials/footer
+ *   - layouts/partials/head
+ *   - layouts/partials/header
+ *   - layouts/partials/footer
  *
  * Data:
  *
@@ -23,13 +23,13 @@
 <!DOCTYPE html>
 <html lang="{{webapp.locale.current}}">
 
-@use:examples/layouts/partials/head
+@use:layouts/partials/head
 
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100">
 
 <div id="content-wrap">
 
-    @use:examples/layouts/partials/header
+    @use:layouts/partials/header
 
     <main id="main" class="container xl:max-w-screen-xl mx-auto rounded-md p-4 bg-white dark:bg-gray-800 shadow">
 
@@ -43,7 +43,7 @@
 
 </div>
 
-@use:examples/layouts/partials/footer
+@use:layouts/partials/footer
 
 <script src="@route:storage/assets/js/app.js"></script>
 
