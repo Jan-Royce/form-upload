@@ -1,6 +1,7 @@
 # Project-specific
 
 *.log
+/public/storage
 
 # Local files
 
