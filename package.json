@@ -1,0 +1,18 @@
+{
+  "private": true,
+  "scripts": {
+    "watch:styles": "npx tailwindcss -i src/css/app.css -o storage/public/assets/css/app.css --watch",
+    "build:styles": "npx tailwindcss -i src/css/app.css -o storage/public/assets/css/app.css",
+    "build:styles:prod": "npx tailwindcss -i src/css/app.css -o storage/public/assets/css/app.css --minify",
+    "watch:webpack": "webpack --mode development --watch",
+    "build:webpack": "webpack --mode development",
+    "build:webpack:prod": "webpack --mode production",
+    "build:prod": "npm run build:webpack:prod && npm run build:styles:prod"
+  },
+  "devDependencies": {
+    "@tailwindcss/forms": "^0.5.10",
+    "tailwindcss": "^3.4",
+    "webpack": "^5.90",
+    "webpack-cli": "^5.1"
+  }
+}

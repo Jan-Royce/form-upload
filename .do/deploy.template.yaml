@@ -1,0 +1,24 @@
+spec:
+  name: bones-web
+  services:
+    - environment_slug: php
+      name: bones-web
+      github:
+        branch: master
+        repo: bayfrontmedia/bones-web
+        deploy_on_push: true
+      build_command: php bones down && php bones cache:save && php bones up
+      run_command: heroku-php-apache2 public/
+      envs:
+        - key: APP_KEY
+          value: "SECURE_APP_KEY"
+        - key: APP_DEBUG
+          value: "false"
+        - key: APP_ENVIRONMENT
+          value: "prod"
+        - key: APP_TIMEZONE
+          value: "UTC"
+        - key: ROUTER_HOST
+          value: "${APP_DOMAIN}"
+        - key: ROUTER_ROUTE_PREFIX
+          value: "/"

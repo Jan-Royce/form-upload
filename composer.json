@@ -1,0 +1,40 @@
+{
+  "name": "bayfrontmedia/bones-web",
+  "description": "A starter kit to begin building a web application with Tailwind using the Bones framework",
+  "homepage": "https://github.com/bayfrontmedia/bones-web",
+  "license" : "MIT",
+  "type": "project",
+  "keywords": [
+    "bones",
+    "bones-web",
+    "tailwind",
+    "tailwindcss",
+    "webpack"
+  ],
+  "authors": [
+    {
+      "name": "John Robinson",
+      "email": "john@bayfrontmedia.com",
+      "homepage": "https://www.bayfrontmedia.com"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/bayfrontmedia/bones-web/issues"
+  },
+  "config": {
+    "preferred-install": "dist"
+  },
+  "require": {
+    "php": "^8.0",
+    "bayfrontmedia/bones": "^5.3",
+    "bayfrontmedia/bones-service-webapp": "^1.5",
+    "bayfrontmedia/translation": "^2.0"
+  },
+  "require-dev": {
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/"
+    }
+  }
+}
