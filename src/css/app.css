@@ -1,3 +1,26 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+    --color-primary: #3b82f6;
+    --color-primary-dark: #3676db;
+}
+
+.required:after {
+    content: " *";
+    @apply text-red-500;
+}
+
+#image-upload.dropzone {
+    @apply border border-gray-300;
+}
+
+.dropzone .dz-preview .dz-image {
+    @apply border-2 border-solid;
+    border-color: var(--color-primary);
+}
+
+.input-message.success {
+    @apply text-green-500;
+}

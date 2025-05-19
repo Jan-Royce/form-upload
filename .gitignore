@@ -2,6 +2,7 @@
 
 *.log
 /public/storage
+/public/uploads/*
 
 # Local files
 

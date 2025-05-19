@@ -1,21 +1,10 @@
 import * as Theme from "./modules/theme";
+import * as Upload from "./modules/upload";
 
 export function init(version) {
     Theme.detect();
-
-    let selectLocale = document.getElementById('select-locale');
-
-    selectLocale.addEventListener("change", () => {
-
-        let locale = selectLocale.value;
-
-        if (locale !== '') {
-            window.location.href = '?locale=' + locale;
-        }
-
-    });
-
-
+    Upload.init();
+    
     console.log('✅ App initialized (v' + version + ')');
 }
 

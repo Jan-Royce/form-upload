@@ -40,7 +40,7 @@ class Home extends WebAppController
 
         $this->respond('pages/home', [
             'page' => [
-                'title' => 'Home'
+                'title' => 'Upload Image'
             ],
             'params' => $params
         ]);

@@ -18,7 +18,7 @@ return [
             'duration' => 43200 // Cookie duration (in minutes): 43200 = 30 days
         ],
         'routes' => [
-            'redirect' => true, // Add locale to routes?
+            'redirect' => false, // Add locale to routes?
             'exclude' => [ // Excluded requests from locale processing
                 'hosts' => [], // Hosts
                 'paths' => [ // URL paths

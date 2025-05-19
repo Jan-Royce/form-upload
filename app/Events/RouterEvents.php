@@ -3,6 +3,7 @@
 namespace App\Events;
 
 use App\Controllers\Home;
+use App\Controllers\Upload;
 use Bayfront\Bones\Abstracts\EventSubscriber;
 use Bayfront\Bones\Application\Services\Events\EventSubscription;
 use Bayfront\Bones\Application\Services\Filters\FilterService;
@@ -76,7 +77,8 @@ class RouterEvents extends EventSubscriber implements EventSubscriberInterface
             ->addFallback('ANY', function () {
                 App::abort(404);
             })
-            ->get('/', [Home::class, 'index'], [], 'home');
+            ->get('/', [Home::class, 'index'], [], 'home')
+            ->post('/upload', [Upload::class, 'store']);
 
     }
 
