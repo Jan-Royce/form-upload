@@ -28,9 +28,8 @@
     "php": "^8.0",
     "bayfrontmedia/bones": "^5.3",
     "bayfrontmedia/bones-service-webapp": "^1.5",
-    "bayfrontmedia/translation": "^2.0"
-  },
-  "require-dev": {
+    "bayfrontmedia/translation": "^2.0",
+    "aws/aws-sdk-php": "^3.343"
   },
   "autoload": {
     "psr-4": {

@@ -31,7 +31,7 @@
 
     @use:layouts/partials/header
 
-    <main id="main" class="container xl:max-w-screen-xl mx-auto rounded-md p-4 bg-white dark:bg-gray-800 shadow">
+    <main id="main" class="container xl:max-w-screen-xl mx-auto rounded-md p-4 bg-white dark:bg-gray-800 relative shadow">
 
         <div class="text-center">
 

@@ -14,7 +14,7 @@ export function init() {
         addRemoveLinks: true,
         init: function() {
             this.on("sending", function (file, xhr, formData) {
-                //TODO loading
+                showLoading();
                 formData.append("name", document.querySelector("#file-name").value);
                 formData.append("visibility", document.querySelector("#select-visibility").value);
             });
@@ -24,7 +24,8 @@ export function init() {
                     document.querySelector(".input-message[for='submit']").classList.add("success");
                     document.querySelector(".input-message[for='submit']").innerHTML = "Uploaded successfully!";
                     
-                    // TODO reset form
+                    resetForm(this);
+                    hideLoading();
                 }
             });
             
@@ -59,6 +60,24 @@ function clearInputMessages()
     document.querySelectorAll(".input-message").forEach(function (el) {
         el.innerHTML = "";
     });
+}
+
+function resetForm(dropzone, delay=1200)
+{
+    setTimeout(function() {
+        document.querySelector('#upload-form').reset();
+        dropzone.removeAllFiles();
+    }, delay);
+}
+
+function showLoading()
+{
+    document.querySelector('#loading-overlay').classList.remove('hidden');
+}
+
+function hideLoading()
+{
+    document.querySelector('#loading-overlay').classList.add('hidden');
 }
 
 function validateFields(dropzone)

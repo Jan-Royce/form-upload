@@ -7,6 +7,11 @@ use Bayfront\Bones\Application\Services\Events\EventService;
 use Bayfront\HttpResponse\Response;
 use Bayfront\HttpRequest\Request;
 use Bayfront\Bones\Application\Utilities\Constants;
+use Bayfront\Bones\Application\Utilities\App;
+
+use Aws\S3\S3Client;
+use Aws\Exception\AwsException;
+use Aws\Sdk;
 
 /**
  * Upload Controller.
@@ -44,7 +49,6 @@ class Upload extends Controller
         $errors = $this->_validate($fields, $imageData);
         
         if(count($errors) == 0) {
-            //TODO upload to bucket
             $img = $this->_uploadImage($imageData);
             $data = [
                 "file_name" => $fields["name"],
@@ -103,9 +107,49 @@ class Upload extends Controller
      */
     private function _uploadImage($imageData): string
     {
-        // TODO aws s3 bucket stuff here
-        $imageUrl = "image-url.com";
+        $tempFile = $imageData["file"]["tmp_name"];
+        $fileName = basename($imageData["file"]['name']);
+        $fileType = $imageData["file"]['type'];
+        $fileSize = $imageData["file"]['size'];
+
+        $fileKey = 'uploads/' . uniqid() . '/' . $fileName;
         
-        return $imageUrl;
+        $region = App::getConfig('app.s3_region');
+        $host = App::getConfig('app.s3_host');
+        $bucket = App::getConfig('app.s3_bucket');
+        $accessKey = App::getConfig('app.s3_access_key');
+        $secretKey = App::getConfig('app.s3_secret_key');
+        $useCert = App::getConfig('app.s3_use_cert');
+        
+        $sharedConfig = [
+            'region' => $region,
+            'credentials' => [
+                'key' => $accessKey,   
+                'secret' => $secretKey   
+            ],
+            'endpoint' => $host
+        ];
+        
+        if($useCert) {
+            $cert = str_replace("\\", "/", Constants::get('APP_PUBLIC_PATH')) . "/cacert.pem";
+            $sharedConfig['http'] = [
+                'verify' => $cert
+            ];
+        }
+        
+        $sdk = new Sdk($sharedConfig);
+        $s3 = $sdk->createS3();
+        
+        try {
+            $upload = $s3->putObject([
+                'Bucket' => $bucket,
+                'Key' => $fileKey,
+                'SourceFile' => $tempFile
+            ]);
+            
+            return $upload['ObjectURL'];
+        } catch (Exception $exception) {
+            echo "Failed to upload $fileName with error: " . $exception->getMessage();
+        }
     }
 }
