@@ -51,7 +51,7 @@ class Upload extends Controller
         $errors = $this->_validate($fields, $imageData);
         
         if(count($errors) == 0) {
-            $img = $this->_uploadImage($imageData);
+            $img = $this->_uploadImage($imageData, $fields["visibility"]);
             $data = [
                 "file_name" => $fields["name"],
                 "visibility" => $fields["visibility"],
@@ -105,14 +105,17 @@ class Upload extends Controller
 
     /**
      * @param array $imageData
+     * @param string $visibility
      * @return string|null
      * @throws UndefinedConstantException
+     *
+     * $imageData array keys are not checked if existing
      */
-    private function _uploadImage(array $imageData): ?string
+    private function _uploadImage(array $imageData, string $visibility): ?string
     {
         $tempFile = $imageData["file"]["tmp_name"];
         $fileName = basename($imageData["file"]['name']);
-        // $fileType and $fileSize variables  were not used
+        // $fileType and $fileSize variables were not used
 
         $fileKey = 'uploads/' . uniqid() . '/' . $fileName;
         
@@ -146,7 +149,8 @@ class Upload extends Controller
             $upload = $s3->putObject([
                 'Bucket' => $bucket,
                 'Key' => $fileKey,
-                'SourceFile' => $tempFile
+                'SourceFile' => $tempFile,
+                'ACL' => $visibility
             ]);
 
         } catch (Exception $exception) {

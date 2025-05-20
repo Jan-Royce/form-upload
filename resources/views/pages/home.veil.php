@@ -61,7 +61,7 @@
                         autocomplete="off"
                         required>
                     <option value="" disabled selected>-</option>
-                    <option value="public">Public</option>
+                    <option value="public-read">Public</option>
                     <option value="private">Private</option>
                 </select>
             </div>
