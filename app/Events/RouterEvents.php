@@ -78,7 +78,7 @@ class RouterEvents extends EventSubscriber implements EventSubscriberInterface
                 App::abort(404);
             })
             ->get('/', [Home::class, 'index'], [], 'home')
-            ->post('/upload', [Upload::class, 'store']);
+            ->post('/upload', [Upload::class, 'store'], [], 'upload');
 
     }
 

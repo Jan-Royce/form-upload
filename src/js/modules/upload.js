@@ -1,10 +1,14 @@
-export function init() {
+/*
+URL path may differ depending on the server setup, so adding an uploadUrl
+parameter allows the path to be defined based on a defined route.
+ */
+export function init(uploadUrl) {
     clearInputMessages();
     
     window.Dropzone.autoDiscover = false;
-    
+
     let dropzone = new window.Dropzone("div#image-upload", {
-        url: "/upload",
+        url: uploadUrl,
         autoQueue: false,
         autoProcessQueue: false,
         paramName: "file",
@@ -18,8 +22,9 @@ export function init() {
                 formData.append("name", document.querySelector("#file-name").value);
                 formData.append("visibility", document.querySelector("#select-visibility").value);
             });
-            
-            this.on("success", function (file, responseText, e) {
+
+            // responseText and e were not used
+            this.on("success", function (file) {
                 if (file.xhr.status === 200) {
                     document.querySelector(".input-message[for='submit']").classList.add("success");
                     document.querySelector(".input-message[for='submit']").innerHTML = "Uploaded successfully!";
@@ -84,14 +89,14 @@ function validateFields(dropzone)
 {
     let errors = [];
     
-    if(document.querySelector("#file-name").value == "") {
+    if(document.querySelector("#file-name").value === "") {
         errors.push({
             id: "file-name",
             message: "File name must not be empty."
         });
     }
     
-    if(document.querySelector("#select-visibility").value == "") {
+    if(document.querySelector("#select-visibility").value === "") {
         errors.push({
             id: "select-visibility",
             message: "File visibility must be set."
@@ -100,7 +105,7 @@ function validateFields(dropzone)
     
     let files = dropzone.files;
     
-    if(files.length == 0) {
+    if(files.length === 0) {
         errors.push({
             id: "file",
             message: "Image upload is required."

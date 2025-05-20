@@ -4,14 +4,14 @@ namespace App\Controllers;
 
 use Bayfront\Bones\Abstracts\Controller;
 use Bayfront\Bones\Application\Services\Events\EventService;
+use Bayfront\Bones\Exceptions\UndefinedConstantException;
 use Bayfront\HttpResponse\Response;
 use Bayfront\HttpRequest\Request;
 use Bayfront\Bones\Application\Utilities\Constants;
 use Bayfront\Bones\Application\Utilities\App;
 
-use Aws\S3\S3Client;
-use Aws\Exception\AwsException;
 use Aws\Sdk;
+use Exception;
 
 /**
  * Upload Controller.
@@ -38,10 +38,12 @@ class Upload extends Controller
     }
     
     /**
-     * @param array $params
      * @return string
+     * @throws UndefinedConstantException
+     *
+     * $params parameter was not used
      */
-    public function store(array $params)
+    public function store(): string
     {
         $imageData = Request::getFile();
         $fields = Request::getPost();
@@ -56,7 +58,7 @@ class Upload extends Controller
                 "url" => $img
             ];
             
-            $file = str_replace("\\", "/", Constants::get('APP_PUBLIC_PATH')) . "/uploads/" . str_replace(" ", "_", strtolower($fields["name"])) . "_" . time() . ".json";
+            $file = str_replace("\\", "/", Constants::get('APP_STORAGE_PATH')) . "/app/uploads/" . str_replace(" ", "_", strtolower($fields["name"])) . "_" . time() . ".json";
             
             file_put_contents($file, json_encode($data));
         }
@@ -72,7 +74,7 @@ class Upload extends Controller
      * @param array $imageData
      * @return array
      */
-    private function _validate($fields, $imageData): array
+    private function _validate(array $fields, array $imageData): array
     {
         $formIds = [
             "name" => "file-name",
@@ -100,17 +102,17 @@ class Upload extends Controller
         
         return $errors;
     }
-    
+
     /**
      * @param array $imageData
-     * @return string
+     * @return string|null
+     * @throws UndefinedConstantException
      */
-    private function _uploadImage($imageData): string
+    private function _uploadImage(array $imageData): ?string
     {
         $tempFile = $imageData["file"]["tmp_name"];
         $fileName = basename($imageData["file"]['name']);
-        $fileType = $imageData["file"]['type'];
-        $fileSize = $imageData["file"]['size'];
+        // $fileType and $fileSize variables  were not used
 
         $fileKey = 'uploads/' . uniqid() . '/' . $fileName;
         
@@ -146,10 +148,13 @@ class Upload extends Controller
                 'Key' => $fileKey,
                 'SourceFile' => $tempFile
             ]);
-            
-            return $upload['ObjectURL'];
+
         } catch (Exception $exception) {
             echo "Failed to upload $fileName with error: " . $exception->getMessage();
+            return null;
         }
+
+        return $upload['ObjectURL']; // Would like to see a check that the array key exists
+
     }
 }

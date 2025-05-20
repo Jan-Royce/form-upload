@@ -49,7 +49,8 @@
 
 <script>
     let version = '{{app.version}}';
-    App.init(version);
+    let uploadUrl = '@route:upload';
+    App.init(version, uploadUrl);
 </script>
 
 ?@place:end_body

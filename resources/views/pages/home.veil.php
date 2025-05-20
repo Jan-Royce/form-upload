@@ -31,7 +31,7 @@
 
 <h1 class="text-3xl text-left font-semibold mb-6 px-4">{{page.title}}</h1>
 
-<form action="/upload" id="upload-form" class="text-left px-4" method="post" enctype="multipart/form-data">
+<form action="@route:home/upload" id="upload-form" class="text-left px-4" method="post" enctype="multipart/form-data">
     
     <div class="md:flex flex-wrap md:items-center mb-6">
         <div class="md:w-1/2 mb-4">
